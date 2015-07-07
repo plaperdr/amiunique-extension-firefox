@@ -1,0 +1,17 @@
+{
+  "title": "AmIUnique",
+  "name": "amiunique-extension",
+  "version": "0.1.0",
+  "description": "An extension to collect daily data on your browser fingerprint and much more. Help us investigate the diversity of fingerprints!",
+  "main": "index.js",
+  "author": "Pierre Laperdrix",
+  "homepage": "https://amiunique.org",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "MIT",
+  "permissions": {
+    "cross-domain-content": ["https://amiunique.org/"]
+  }
+}
