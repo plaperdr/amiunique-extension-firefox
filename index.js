@@ -2,7 +2,9 @@
 
 var pageWorkers = require("sdk/page-worker");
 var self = require("sdk/self");
-var preferences = require("sdk/simple-prefs").prefs;
+var tabs = require("sdk/tabs");
+var sp = require("sdk/simple-prefs");
+var preferences = sp.prefs;
 
 console.log("AmIUnique extension");
 
@@ -15,6 +17,10 @@ function generateUUID(){
     });
     return uuid;
 }
+
+sp.on("openTimeline", function() {
+    tabs.open("https://amiunique.org/timeline/"+preferences.AmIUniqueID);
+});
 
 //Generation of the unique ID if not present in the preferences
 if(!preferences.AmIUniqueID){
