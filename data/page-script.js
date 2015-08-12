@@ -21,6 +21,12 @@ iframe.addEventListener("load", function () {
         fp = iframe.contentWindow.document.getElementById("fp");
         fp.setAttribute("uuid", self.options.uuid);
 
+        //Send back the number of evolutions to index.js
+        setTimeout(function () {
+            numb = fp.getAttribute("nbEvol");
+            self.port.emit("nbEvol", numb.toString());
+        }, 5000);
+
         setTimeout(clearIframe,10000);
     }
 
