@@ -23,8 +23,10 @@ function generateUUID(){
 
 //Generation of the unique ID if not present in the preferences
 //Creation of the extension variables
-if(!preferences.AmIUniqueID && !preferences.nbEvol){
+if(!preferences.AmIUniqueID) {
     preferences.AmIUniqueID = generateUUID();
+}
+if(!preferences.nbEvol){
     preferences.nbEvol = 0;
     preferences.lastSent = new Date().toString();
     preferences.changesToSee = false;
