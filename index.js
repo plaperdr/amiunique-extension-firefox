@@ -1,6 +1,7 @@
 //AmIUnique index.js
 
 var pageWorkers = require("sdk/page-worker");
+var pageMod = require("sdk/page-mod");
 var self = require("sdk/self");
 var tabs = require("sdk/tabs");
 var { ToggleButton } = require('sdk/ui/button/toggle');
@@ -37,6 +38,13 @@ if(!preferences.nbEvol){
 //Show ID for GitHub support
 sp.on("showID",function(){
     prompts.alert(null, "My AmIUnique ID", preferences.AmIUniqueID);
+});
+
+/***************** Content script for website *****************/
+var contentScriptValue = 'document.getElementById("menuTimeline").href = "/timeline/'+preferences.AmIUniqueID+'";';
+pageMod.PageMod({
+    include: "https://amiunique.org/*",
+    contentScript: contentScriptValue
 });
 
 /***************** Toggle button and Panel *****************/
