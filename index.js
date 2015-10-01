@@ -6,9 +6,7 @@ var tabs = require("sdk/tabs");
 var { ToggleButton } = require('sdk/ui/button/toggle');
 var panels = require("sdk/panel");
 var preferences = require("sdk/simple-prefs").prefs;
-
-console.log("AmIUnique extension");
-
+var Request = require("sdk/request").Request;
 
 /***************** Creation of parameters *****************/
 function generateUUID(){
@@ -111,7 +109,6 @@ panel.port.on("openTimeline",function(){
     tabs.open({ url: "https://amiunique.org/timeline/"+preferences.AmIUniqueID });
 });
 
-
 /***************** FP Loop *****************/
 
 //Launch of the page worker responsible for the
@@ -122,20 +119,27 @@ var pageWorker = pageWorkers.Page({
     contentScriptOptions: {"uuid":preferences.AmIUniqueID}
 });
 
-//Register any changes after sending the current FP
-pageWorker.port.on("nbEvol", function(nbEvol){
+//When the iframe is unloaded, we request the number of changes
+//directly to the server
+pageWorker.port.on("getNbEvol",function(){
 
-    var newEvol = parseInt(nbEvol);
+    Request({
+        //url: "https://amiunique.org/getNbEvol/"+preferences.AmIUniqueID ,
+        url: "http://localhost:9000/getNbEvol/"+preferences.AmIUniqueID ,
+        onComplete: function (nbEvol) {
+            var newEvol = parseInt(nbEvol.text);
 
-    //If the fingerprint has changed
-    //We indicate it in the browser action
-    if (newEvol > preferences.nbEvol) {
-        button.badge = "!";
-        preferences.nbEvol = newEvol;
-        preferences.changesToSee = true;
-    }
+            //If the fingerprint has changed
+            //We indicate it in the browser action
+            if (newEvol > preferences.nbEvol) {
+                button.badge = "!";
+                preferences.nbEvol = newEvol;
+                preferences.changesToSee = true;
+            }
 
-    //We update the time the last FP was sent
-    preferences.lastSent = new Date().toString();
+            //We update the time the last FP was sent
+            preferences.lastSent = new Date().toString();
+        }
+    }).get();
+
 });
-

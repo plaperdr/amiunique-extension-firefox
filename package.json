@@ -12,6 +12,6 @@
   },
   "license": "GPLv3",
   "permissions": {
-    "cross-domain-content": ["https://amiunique.org/"]
+    "cross-domain-content": ["https://amiunique.org/","http://localhost:9000/"]
   }
 }
