@@ -9,6 +9,8 @@ $( document ).ready(function() {
         $('#nbEvol').text(nbEvol);
         if (changesToSee) {
             $('#changes').show();
+        } else {
+            $('#changes').hide();
         }
     }
 

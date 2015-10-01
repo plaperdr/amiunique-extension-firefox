@@ -5,10 +5,14 @@ var self = require("sdk/self");
 var tabs = require("sdk/tabs");
 var { ToggleButton } = require('sdk/ui/button/toggle');
 var panels = require("sdk/panel");
-var preferences = require("sdk/simple-prefs").prefs;
+var sp = require("sdk/simple-prefs");
+var preferences = sp.prefs;
 var Request = require("sdk/request").Request;
+let { Cc, Ci } = require('chrome');
+var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
 
-/***************** Creation of parameters *****************/
+
+/***************** Preferences *****************/
 function generateUUID(){
     var d = new Date().getTime();
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -30,6 +34,11 @@ if(!preferences.nbEvol){
     preferences.changesToSee = false;
 }
 
+//Show ID for GitHub support
+sp.on("showID",function(){
+    prompts.alert(null, "My AmIUnique ID", preferences.AmIUniqueID);
+});
+
 /***************** Toggle button and Panel *****************/
 
 var button = ToggleButton({
@@ -42,7 +51,21 @@ var button = ToggleButton({
     },
     onChange: handleChange
 });
+
+//Change the state of the button according
+// to the stored preference
 if(preferences.changesToSee) button.badge = "!";
+
+//Change the state of a pref and the button if
+// the notifications pref is modified
+sp.on("notifications", function(){
+    if(preferences.notifications == "D"){
+        preferences.changesToSee = false;
+        button.badge = "";
+    } else if (preferences.notifications == "B"){
+        button.badge = "";
+    }
+});
 
 var panel = panels.Panel({
     height: 350,
@@ -132,9 +155,11 @@ pageWorker.port.on("getNbEvol",function(){
             //If the fingerprint has changed
             //We indicate it in the browser action
             if (newEvol > preferences.nbEvol) {
-                button.badge = "!";
                 preferences.nbEvol = newEvol;
-                preferences.changesToSee = true;
+                if(preferences.notifications != "D") {
+                    preferences.changesToSee = true;
+                    if (preferences.notifications == "E") button.badge = "!";
+                }
             }
 
             //We update the time the last FP was sent
