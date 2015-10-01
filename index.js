@@ -147,8 +147,7 @@ var pageWorker = pageWorkers.Page({
 pageWorker.port.on("getNbEvol",function(){
 
     Request({
-        //url: "https://amiunique.org/getNbEvol/"+preferences.AmIUniqueID ,
-        url: "http://localhost:9000/getNbEvol/"+preferences.AmIUniqueID ,
+        url: "https://amiunique.org/getNbEvol/"+preferences.AmIUniqueID ,
         onComplete: function (nbEvol) {
             var newEvol = parseInt(nbEvol.text);
 
