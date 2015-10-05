@@ -53,7 +53,7 @@ var button = ToggleButton({
     id: "ami-button",
     label: "AmIUnique",
     icon: {
-        "16": "./icon.png",
+        "16": "./icon-16.png",
         "32": "./icon.png",
         "64": "./icon.png"
     },
