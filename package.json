@@ -1,8 +1,8 @@
 {
   "title": "AmIUnique",
   "name": "amiunique-extension",
-  "version": "1.0.0",
-  "description": "An extension to collect daily data on your browser fingerprint and much more. Help us investigate the diversity of fingerprints!",
+  "version": "1.0.1",
+  "description": "An extension to follow the evolution of your browser fingerprint! Be notified as soon as a change is detected!",
   "main": "index.js",
   "author": "Pierre Laperdrix",
   "homepage": "https://amiunique.org",
