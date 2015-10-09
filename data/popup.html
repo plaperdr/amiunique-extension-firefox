@@ -4,37 +4,34 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div style="width: 250px" class="container">
+<div style="width: 350px" class="container">
     <div class="col s8 offset-s2">
         <img class="logo" src="icon.png">
         <h5 class="title">AmIUnique</h5>
         <h6 class="subtitle">Extension</h6>
 
         <div class="msg" id="changes" style="display: none;">
-            Your fingerprint has evolved!
+            <span data-l10n-id="evol">
+            </span>
             <div class="row">
-                <button id="viewChanges" class="col s8 offset-s1 waves-effect waves-light btn red accent-2">See changes</button>
+                <button id="viewChanges" class="col s8 offset-s1 waves-effect waves-light btn red accent-2" data-l10n-id="viewChanges"></button>
                 <button id="discardChanges" class="col s2 waves-effect waves-light btn red accent-2">X</button>
             </div>
         </div>
 
         <div id="message" class="logo">
             <div class="card-panel msg" style="">
-                <span>
-                     Last fingerprint sent
+                <span data-l10n-id="lastSent">
                 </span><br>
                 <span id="date"></span>
                 <br><br>
-                <span>
-                    Number of changes
+                <span data-l10n-id="nbChang">
                 </span><br>
                 <span id="nbEvol"></span>
             </div>
         </div>
-        <button id="viewFP" class="waves-effect waves-light btn">View my fingerprint</button>
-        <button id="viewTimeline" class="waves-effect waves-light btn">View my timeline</button>
-
-
+        <button id="viewFP" class="waves-effect waves-light btn" data-l10n-id="viewFP"></button>
+        <button id="viewTimeline" class="waves-effect waves-light btn" data-l10n-id="viewTimeline"></button>
     </div>
 
 </div>

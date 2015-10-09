@@ -1,7 +1,7 @@
 {
   "title": "AmIUnique",
   "name": "amiunique-extension",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An extension to follow the evolution of your browser fingerprint! Be notified as soon as a change is detected!",
   "main": "index.js",
   "author": "Pierre Laperdrix",
@@ -22,20 +22,20 @@
     "options": [
       {
         "value": "E",
-        "label": "Enabled"
+        "label": "enabled"
       },
       {
         "value": "D",
-        "label": "Disabled"
+        "label": "disabled"
       },
       {
         "value": "B",
-        "label": "Disable badge only"
+        "label": "badge"
       }
     ]
   },{
     "type": "control",
-    "label": "Show ID",
+    "label": "Show my ID",
     "name": "showID",
     "title": "AmIUnique ID"
   }]

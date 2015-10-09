@@ -11,6 +11,7 @@ var preferences = sp.prefs;
 var Request = require("sdk/request").Request;
 let { Cc, Ci } = require('chrome');
 var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+var _ = require("sdk/l10n").get;
 
 
 /***************** Preferences *****************/
@@ -37,7 +38,7 @@ if(!preferences.nbEvol){
 
 //Show ID for GitHub support
 sp.on("showID",function(){
-    prompts.alert(null, "My AmIUnique ID", preferences.AmIUniqueID);
+    prompts.alert(null,_("idPrompt"), preferences.AmIUniqueID);
 });
 
 /***************** Content script for website *****************/
@@ -76,7 +77,8 @@ sp.on("notifications", function(){
 });
 
 var panel = panels.Panel({
-    height: 350,
+    height: 400,
+    width: 370,
     contentURL: self.data.url("popup.html"),
     contentScriptFile:  [
         self.data.url("dependencies/jquery-2.1.4.min.js"),
