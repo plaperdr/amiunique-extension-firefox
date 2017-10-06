@@ -1,14 +1,14 @@
 {
   "title": "AmIUnique",
   "name": "amiunique-extension",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An extension to follow the evolution of your browser fingerprint! Be notified as soon as a change is detected!",
   "main": "index.js",
   "author": "Pierre Laperdrix",
   "homepage": "https://amiunique.org",
   "engines": {
-    "firefox": ">=38.0a1",
-    "fennec": ">=38.0a1"
+    "firefox": ">= 51.0a1",
+    "fennec": ">= 51.0a1"
   },
   "license": "GPLv3",
   "permissions": {
@@ -38,6 +38,6 @@
     "label": "Show my ID",
     "name": "showID",
     "title": "AmIUnique ID"
-  }]
-
+  }],
+  "hasEmbeddedWebExtension": true
 }

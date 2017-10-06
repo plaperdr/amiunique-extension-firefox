@@ -12,7 +12,7 @@ var Request = require("sdk/request").Request;
 let { Cc, Ci } = require('chrome');
 var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
 var _ = require("sdk/l10n").get;
-
+const webExtension = require("sdk/webextension");
 
 /***************** Preferences *****************/
 function generateUUID(){
@@ -35,6 +35,24 @@ if(!preferences.nbEvol){
     preferences.lastSent = new Date().toString();
     preferences.changesToSee = false;
 }
+
+
+//Storage of the unique ID with the WebExtension addon
+prefForWebEx = {};
+prefForWebEx.uuid = preferences.AmIUniqueID;
+if(!preferences.nbEvol){
+    prefForWebEx.nbEvol = preferences.nbEvol ;
+    prefForWebEx.lastSent = preferences.lastSent ;
+    prefForWebEx.changesToSee = preferences.changesToSee;
+}
+
+webExtension.startup().then(({browser}) => {
+    browser.runtime.onConnect.addListener(port => {
+        if (port.name === "sync-legacy-addon-data") {
+            port.postMessage(prefForWebEx);
+        }
+    });
+});
 
 //Show ID for GitHub support
 sp.on("showID",function(){
